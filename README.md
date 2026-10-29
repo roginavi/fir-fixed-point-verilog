@@ -21,15 +21,10 @@ gtkwave fir4.vcd                     # optional: inspect waveforms
 - Max error vs floating point: 1 LSB
 - Quantization SNR: 85.6 dB
 - RTL vs golden model: 256/256 samples match
+![Noisy input x and filtered output y from the RTL simulation](waveform.png)
 
 ## Design notes
 - Sum of |coefficients| = 1.0, so the 32-bit accumulator cannot overflow.
 - Output truncates (floor) via `>>>`; Python's `>>` on integers behaves the same, which keeps the model bit-exact.
 - Output is registered: y[n] appears one clock after x[n].
 
-## Ideas to extend
-- Symmetric-coefficient optimization (2 multipliers instead of 4)
-- Pipeline the adder tree and compare timing
-- Parameterize taps and bit widths
-- Replace with the Pan-Tompkins bandpass for ECG on MIT-BIH data
-- Synthesize with Yosys or Vivado and report resource use and Fmax
